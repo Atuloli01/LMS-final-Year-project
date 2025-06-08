@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <style>
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-icon {
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.3s ease;
+        }
+
+        .sun-icon {
+            color: var(--text-color);
+        }
+
+        .moon-icon {
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] .sun-icon {
+            display: none;
+        }
+
+        [data-theme="light"] .moon-icon {
+            display: none;
+        }
+
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --primary-color: #1a1a1a;
+            --secondary-color: #666666;
+            --hover-color: #e6e6e6;
+            --border-color: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --primary-color: #e0e0e0;
+            --secondary-color: #888888;
+            --hover-color: #2a2a2a;
+            --border-color: #333333;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background: var(--bg-color);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .portal-container {
+            display: none;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+
+        .class-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .class-btn {
+            padding: 15px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .class-btn:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .subject-list {
+            display: none;
+            background: var(--bg-color);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-top: 20px;
+        }
+
+        .notes-link {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+
+        .notes-link:hover {
+            background: var(--hover-color);
+            transform: translateX(5px);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        h1,
+        h2 {
+            font-weight: 600;
+            margin-bottom: 1.5em;
+        }
+
+        .subject-chapters {
+            margin-left: 25px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 15px;
+        }
+
+        .chapter-link {
+            display: block;
+            padding: 12px;
+            margin: 8px 0;
+            background: var(--hover-color);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.2s;
+        }
+
+        .chapter-link:hover {
+            transform: translateX(5px);
+        }
+
+        .subject-heading {
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .back-btn {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: all 0.2s;
+        }
+        .back-btn:hover {
+            background: var(--hover-color);
+            transform: translateX(-3px);
+        }
+    </style>
+</head>
+
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <!-- Sun Icon (Light Mode) -->
+        <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+            <circle cx="12" cy="12" r="4" />
+        </svg>
+
+        <!-- Moon Icon (Dark Mode) -->
+        <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <h2>Learn Ledger</h2>
+        <form onsubmit="return handleLogin(event)">
+            <input type="text" id="username" placeholder="Username - student" required>
+            <input type="password" id="password" placeholder="Password - 123" required>
+            <button type="submit">Access Notes</button>
+        </form>
+    </div>
+
+    <h5>
+        <center>By Prabhav Pareek</center>
+    </h5>
+
+    <!-- Main Portal Content -->
+    <div class="portal-container" id="portalContainer">
+        <h1>Select Your Class</h1>
+        <div class="class-buttons">
+            <!-- Previous Classes -->
+            <button class="class-btn" onclick="showSubjects('class8')">Class 8</button>
+            <button class="class-btn" onclick="showSubjects('class9')">Class 9</button>
+            <button class="class-btn" onclick="showSubjects('class10')">Class 10</button>
+        
+            <!-- Class 11 -->
+            <button class="class-btn" onclick="showSubjects('class11com')">Class 11 Commerce</button>
+            <button class="class-btn" onclick="showSubjects('class11hum')">Class 11 Humanities</button>
+            <button class="class-btn" onclick="showSubjects('class11pcmb')">Class 11 PCMB</button>
+        
+            <!-- Class 12 -->
+            <button class="class-btn" onclick="showSubjects('class12com')">Class 12 Commerce</button>
+            <button class="class-btn" onclick="showSubjects('class12hum')">Class 12 Humanities</button>
+            <button class="class-btn" onclick="showSubjects('class12pcmb')">Class 12 PCMB</button>
+        </div>
+
+        <!-- Class 8 Subjects -->
+        <div class="subject-list" id="class8">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 8 Subjects</h2>
+
+            <div class="subject-group">
+                <h3 class="subject-heading">Mathematics</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class8/maths/cl8_ch1_maths.pdf" class="chapter-link" target="_blank">Chapter 1: Rational Numbers</a>
+                    <a href="notes/class8/maths/cl8_ch2_maths.pdf" class="chapter-link" target="_blank">Chapter 2: Linear Equations in One Variable</a>
+                    <a href="notes/class8/maths/cl8_ch3_maths.pdf" class="chapter-link" target="_blank">Chapter 3: Understanding Quadrilaterals</a>
+                    <a href="notes/class8/maths/cl8_ch4_maths.pdf" class="chapter-link" target="_blank">Chapter 4: Practical Geometry</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+            <div class="subject-group">
+                <h3 class="subject-heading">Science</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class8/science/cl8_ch1_science.pdf" class="chapter-link" target="_blank">Chapter 1: Crop Production</a>
+                    <a href="notes/class8/science/cl8_ch2_science.pdf" class="chapter-link" target="_blank">Chapter 2: Microorganisms: Friend and Foe</a>
+                    <a href="notes/class8/science/cl8_ch3_science.pdf" class="chapter-link" target="_blank">Chapter 3: Synthetic Fibres and Plastics</a>
+                    
+                    
+
+
+
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 9 Subjects -->
+        <div class="subject-list" id="class9">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 9 Subjects</h2>
+
+            <div class="subject-group">
+                <h3 class="subject-heading">Mathematics</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class9/English/" class="chapter-link" target="_blank">Chapter 1: Number Systems</a>
+                    <a href="notes/class9/English/ch2.pdf" class="chapter-link" target="_blank">Chapter 2: Algebra</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+            <div class="subject-group">
+                <h3 class="subject-heading">Science</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class9/Science/" class="chapter-link" target="_blank">Chapter 1: Crop Production</a>
+                    <a href="notes/class9/Science/" class="chapter-link" target="_blank">Chapter 2: Microorganisms</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 10 Subjects -->
+        <div class="subject-list" id="class10">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 10 Subjects</h2>
+
+            <div class="subject-group">
+                <h3 class="subject-heading">Mathematics</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class10/English/" class="chapter-link" target="_blank">Chapter 1: Number Systems</a>
+                    <a href="notes/class10/English/" class="chapter-link" target="_blank">Chapter 2: Algebra</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+            <div class="subject-group">
+                <h3 class="subject-heading">Science</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class10/Science/" class="chapter-link" target="_blank">Chapter 1: Crop Production</a>
+                    <a href="notes/class10/Science/" class="chapter-link" target="_blank">Chapter 2: Microorganisms</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 11 Commerce -->
+        <div class="subject-list" id="class11com">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 11 Commerce Subjects</h2>
+            
+            <div class="subject-group">
+                <h3 class="subject-heading">Accountancy</h3>
+                <div class="subject-chapters">
+                    <a href="notes/class11com/Accounts/" class="chapter-link" target="_blank">Chapter 1: Introduction</a>
+                    <a href="notes/class11com/Accounts/" class="chapter-link" target="_blank">Chapter 2: Journal Entries</a>
+                    <!-- Add 16 more chapters -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Class 11 Humanities -->
+        <div class="subject-list" id="class11hum">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 11 Humanities Subjects</h2>
+            <a href="notes/class11hum/history.pdf" class="notes-link" target="_blank">History</a>
+            <a href="notes/class11hum/geography.pdf" class="notes-link" target="_blank">Geography</a>
+            <a href="notes/class11hum/economics.pdf" class="notes-link" target="_blank">Economics</a>
+        </div>
+
+        <!-- Class 11 PCMB -->
+        <div class="subject-list" id="class11pcmb">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 11 PCMB Subjects</h2>
+            <a href="notes/class11pcmb/physics/ch1.pdf" class="notes-link" target="_blank">Physics</a>
+            <a href="notes/class11pcmb/chemistry.pdf" class="notes-link" target="_blank">Chemistry</a>
+            <a href="notes/class11pcmb/maths.pdf" class="notes-link" target="_blank">Maths</a>
+            <a href="notes/class11pcmb/biology.pdf" class="notes-link" target="_blank">Biology</a>
+        </div>
+
+
+        <!-- Class 12 Commerce -->
+        
+        <div class="subject-list" id="class12com">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 12 Commerce Subjects</h2>
+            <a href="notes/class12com/accounts.pdf" class="notes-link" target="_blank">Accounts</a>
+            <a href="notes/class12com/business_studies.pdf" class="notes-link" target="_blank">Business Studies</a>
+            <a href="notes/class12com/economics.pdf" class="notes-link" target="_blank">Economics</a>
+        </div>
+
+        <!-- Class 12 Humanities-->
+        <div class="subject-list" id="class12hum">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 12 Humanities Subjects</h2>
+            <a href="notes/class12hum/history.pdf" class="notes-link" target="_blank">History</a>
+            <a href="notes/class12hum/geography.pdf" class="notes-link" target="_blank">Geography</a>
+            <a href="notes/class12hum/economics.pdf" class="notes-link" target="_blank">Economics</a>
+        </div>
+
+        <!-- Class 12 PCMB -->
+        <div class="subject-list" id="class12pcmb">
+            <button class="back-btn" onclick="showClassSelection()">← Back to Classes</button>
+            <h2>Class 12 PCMB Subjects</h2>
+            <a href="notes/class12pcmb/physics.pdf" class="notes-link" target="_blank">Physics</a>
+            <a href="notes/class12pcmb/chemistry.pdf" class="notes-link" target="_blank">Chemistry</a>
+            <a href="notes/class12pcmb/maths.pdf" class="notes-link" target="_blank">Maths</a>
+            <a href="notes/class12pcmb/biology.pdf" class="notes-link" target="_blank">Biology</a>
+        </div>
+    </div>
+
+    <script>
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Apply saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+
+        // Login handler
+        function handleLogin(event) {
+            event.preventDefault();
+            checkLogin();
+            return false;
+        }
+
+        // Updated login check function
+        function checkLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'student' && password === '123') {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('portalContainer').style.display = 'block';
+                return true;
+            } else {
+                alert('Incorrect credentials');
+                return false;
+            }
+        }
+
+        // Subject navigation
+        function showSubjects(className) {
+            document.querySelectorAll('.subject-list').forEach(div => {
+                div.style.display = 'none';
+            });
+            document.getElementById(className).style.display = 'block';
+        }
+    </script>
+
+<script>
+    // Modified showSubjects function
+    function showSubjects(className) {
+        // Hide all subject lists first
+        document.querySelectorAll('.subject-list').forEach(div => {
+            div.style.display = 'none';
+        });
+        
+        // Show the selected class's subjects
+        const targetDiv = document.getElementById(className);
+        if (targetDiv) {
+            targetDiv.style.display = 'block';
+            
+            // Scroll to the selected section
+            targetDiv.scrollIntoView({ behavior: 'smooth' });
+            
+            // Hide class selection buttons
+            document.querySelector('.class-buttons').style.display = 'none';
+        } else {
+            console.error('Element not found:', className);
+        }
+    }
+
+    // Add this function to handle back navigation
+    function showClassSelection() {
+        document.querySelectorAll('.subject-list').forEach(div => {
+            div.style.display = 'none';
+        });
+        document.querySelector('.class-buttons').style.display = 'grid';
+        document.getElementById('portalContainer').scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>
