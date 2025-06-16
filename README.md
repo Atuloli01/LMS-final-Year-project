@@ -118,14 +118,22 @@ MongoDB used optionally for scalability in analytics, dynamic content.
 
 #### ✅ Using PHP (XAMPP)
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/Atuloli01/LMS-final-Year-project.git
-   cd LMS-final-Year-project
-   //Add a .env file keys
-   //open two tab :
-   cd clinet/
-   cd server/
-   //BOth terminal type:
-   npm run dev
-   
+```bash
+# Clone the repository
+git clone https://github.com/Atuloli01/LMS-final-Year-project.git
+
+# Move into the project directory
+cd LMS-final-Year-project
+
+# Add a .env file with necessary keys
+# (You can use a text editor like nano or VS Code to create it)
+
+# Open two terminal tabs and run the following in each:
+
+# In the first terminal
+cd client/
+npm run dev
+
+# In the second terminal
+cd server/
+npm run dev
