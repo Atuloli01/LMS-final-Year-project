@@ -137,3 +137,6 @@ npm run dev
 # In the second terminal
 cd server/
 npm run dev
+```
+
+<h1>Enjoy the Project : </h1>
