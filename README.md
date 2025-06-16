@@ -279,51 +279,58 @@ npm run dev
 cd client
 npm run dev
 ```
-🔐 Authentication
-JWT Token-based login/register
+---
 
-Passwords hashed via bcrypt
+## 🔐 Authentication
 
-Role-based control (Admin, Instructor, Student)
+- 🔐 **JWT-based login and registration**
+- 🔒 Passwords are hashed securely using `bcrypt`
+- 🧑‍🤝‍🧑 Role-based access control:
+  - Admin
+  - Instructor
+  - Student
+- 🛡️ Protected routes via Express middleware
 
-Protected routes using middleware
+---
 
-📦 API Overview
-RESTful APIs for:
+## 📦 API Overview
 
-User registration & login
+The LMS backend provides a comprehensive set of **RESTful APIs** for:
 
-Course and module management
+- ✅ User registration & login
+- ✅ Course creation, enrollment, and module management
+- ✅ Assignment uploads and student submissions
+- ✅ Real-time chat & messaging functionality
+- ✅ Secure file uploads using Cloudinary
 
-Assignment uploads
+> 📌 _Postman collection & Swagger docs coming soon!_
 
-Chat & messaging
+---
 
-File access via Cloudinary
+## 🖼️ Screenshots
 
-Add Postman docs soon.
+> _You can add screenshots of your UI by uploading them to the repo and linking them here._
 
-🖼️ Screenshots
-(Add screenshots of your UI below)
-📷 Course dashboard
-📷 Instructor panel
-📷 Student assignment view
+- 📷 **Course Dashboard**
+- 📷 **Instructor Panel**
+- 📷 **Student Assignment View**
 
-🧩 Planned Features
- Instructor dashboard
+---
 
- File uploads (video, docs)
+## 🧩 Planned Features
 
- Notifications & Announcements
+- [x] Instructor dashboard with metrics and management tools
+- [x] File uploads (videos, PDFs, docs, etc.)
+- [ ] Real-time notifications and announcements
+- [ ] Integration with Stripe or Razorpay for paid courses
+- [ ] Progressive Web App (PWA) compatibility for mobile access
 
- Stripe / Razorpay integration
+---
 
- Mobile-friendly PWA support
 
 🤝 Contributing
-bash
-Copy
-Edit
+```bash
+
 # 1. Fork this repo
 # 2. Create a new branch
 git checkout -b feature/your-feature
@@ -331,7 +338,7 @@ git checkout -b feature/your-feature
 # 3. Make your changes
 # 4. Push to GitHub
 git push origin feature/your-feature
-
+```
 # 5. Create a Pull Request
 👨‍💻 Author
 Atuloli01
