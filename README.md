@@ -122,3 +122,10 @@ MongoDB used optionally for scalability in analytics, dynamic content.
    ```bash
    git clone https://github.com/Atuloli01/LMS-final-Year-project.git
    cd LMS-final-Year-project
+   //Add a .env file keys
+   //open two tab :
+   cd clinet/
+   cd server/
+   //BOth terminal type:
+   npm run dev
+   
