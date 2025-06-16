@@ -242,40 +242,35 @@ LMS-final-Year-project/
 
 ⚙️ Getting Started
 1️⃣ Clone the Repository
-bash
-Copy
-Edit
+``` bash
 git clone https://github.com/Atuloli01/LMS-final-Year-project.git
 cd LMS-final-Year-project
-2️⃣ Setup Environment Variables
-Create a .env file in server/ with:
-
-env
-Copy
-Edit
+```
+<div>2️⃣ Setup Environment Variables
+Create a .env file in server/ with:  </div>
+``` bash
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret
 CLOUDINARY_CLOUD_NAME=your_name
 CLOUDINARY_API_KEY=your_key
 CLOUDINARY_API_SECRET=your_secret
+```
 3️⃣ Install Dependencies
-bash
-Copy
-Edit
+``` bash
+
+
+# Frontend
+```
 # Backend
 cd server
 npm install
 
-# Frontend
-cd ../client
+cd client
 npm install
 4️⃣ Run the App
 Use 2 terminals:
 
-bash
-Copy
-Edit
 # Terminal 1
 cd server
 npm run dev
@@ -283,6 +278,7 @@ npm run dev
 # Terminal 2
 cd client
 npm run dev
+```
 🔐 Authentication
 JWT Token-based login/register
 
