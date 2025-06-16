@@ -120,5 +120,5 @@ MongoDB used optionally for scalability in analytics, dynamic content.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Atuloli01/LMS-AI.git
-   cd LMS-AI
+   git clone https://github.com/Atuloli01/LMS-final-Year-project.git
+   cd LMS-final-Year-project
