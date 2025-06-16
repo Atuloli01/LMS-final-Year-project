@@ -18,7 +18,9 @@ export const createCheckoutSession = async (req, res) => {
     const course = await Course.findById(courseId);
     if (!course) return res.status(404).json({ message: "Course not found!" });
 
-    const dummyPaymentId = `DUMMY_PAYMENT_${Date.now()}`;
+    const timestamp = Date.now();
+    const dummyPaymentId = `DUMMY_PAYMENT_${timestamp}`;
+    const dummyPurchaseId = `DUMMY_PURCHASE_${timestamp}`;
 
     const purchase = new CoursePurchase({
       courseId,
@@ -26,6 +28,7 @@ export const createCheckoutSession = async (req, res) => {
       amount: course.coursePrice,
       status: "completed",
       paymentId: dummyPaymentId,
+      purchaseId: dummyPaymentId,
     });
 
     await purchase.save();

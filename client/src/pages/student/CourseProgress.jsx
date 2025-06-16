@@ -69,7 +69,6 @@ const CourseProgress = () => {
     handleLectureProgress(lecture._id);
   };
 
-
   const handleCompleteCourse = async () => {
     await completeCourse(courseId);
   };
@@ -80,7 +79,7 @@ const CourseProgress = () => {
   return (
     <div className="max-w-7xl mx-auto p-4">
       {/* Display course name  */}
-      <div className="flex justify-between mb-4">
+      <div className="flex items-center gap-4 mb-4">
         <h1 className="text-2xl font-bold">{courseTitle}</h1>
         <Button
           onClick={completed ? handleInCompleteCourse : handleCompleteCourse}
@@ -99,18 +98,34 @@ const CourseProgress = () => {
       <div className="flex flex-col md:flex-row gap-6">
         {/* Video section  */}
         <div className="flex-1 md:w-3/5 h-fit rounded-lg shadow-lg p-4">
-          <div>
-            <video
-              src={currentLecture?.videoUrl || initialLecture.videoUrl}
-              controls
-              className="w-full h-auto md:rounded-lg"
-              onPlay={() =>
-                handleLectureProgress(currentLecture?._id || initialLecture._id)
-              }
-            />
+          {/* <div>
+              <video
+                src={currentLecture?.videoUrl || initialLecture.videoUrl}
+                controls
+                className="w-full h-auto md:rounded-lg"
+                onPlay={() =>
+                  handleLectureProgress(currentLecture?._id || initialLecture._id)
+                }
+              />
+            </div> */}
+
+          {/* 👇 Add YouTube Embed Below the Video */}
+          <div className="mt-4">
+            <h4 className="text-lg font-semibold mb-2">Video Playback : </h4>
+            <div className="aspect-w-16 aspect-h-9">
+              <iframe
+                width="560"
+                height="315"
+                src="https://www.youtube.com/embed/nisv3rsn2lQ?si=Z8S_-j2SpIEbHGMp"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
+
           {/* Display current watching lecture title */}
-          <div className="mt-2 ">
+          <div className="mt-2">
             <h3 className="font-medium text-lg">
               {`Lecture ${
                 courseDetails.lectures.findIndex(
@@ -123,6 +138,7 @@ const CourseProgress = () => {
             </h3>
           </div>
         </div>
+
         {/* Lecture Sidebar  */}
         <div className="flex flex-col w-full md:w-2/5 border-t md:border-t-0 md:border-l border-gray-200 md:pl-4 pt-4 md:pt-0">
           <h2 className="font-semibold text-xl mb-4">Course Lecture</h2>
@@ -162,6 +178,66 @@ const CourseProgress = () => {
               </Card>
             ))}
           </div>
+        </div>
+      </div>
+      {/* Notes & Feedback Section */}
+      <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Notes Section */}
+        <div className="bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white flex items-center gap-2">
+            📝 Your Notes
+          </h2>
+          <textarea
+            className="w-full h-44 p-4 border border-gray-300 dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-800 dark:text-white resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            placeholder="Write your notes here..."
+            value={
+              "This course is 🔥! Need to revise Lecture 3 before the quiz."
+            }
+            readOnly
+          />
+          <Button
+            variant="outline"
+            className="mt-4 hover:bg-blue-100 dark:hover:bg-gray-700 transition-all duration-200"
+          >
+            Save Notes
+          </Button>
+        </div>
+
+        {/* Feedback Section */}
+        <div className="bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-6 border border-gray-200 dark:border-gray-700 transition-all duration-300">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white flex items-center gap-2">
+            🌟 Learner Feedback
+          </h2>
+          <ul className="space-y-4">
+            {[
+              {
+                name: "👩‍💻 Atul",
+                feedback:
+                  "Loved the clarity of concepts! The instructor really knows their stuff.",
+              },
+              {
+                name: "🧑‍🔧 Sandeep",
+                feedback:
+                  "Lecture 5 blew my mind! The real-world examples made it stick.",
+              },
+              {
+                name: "👨‍🎓 Prabhav",
+                feedback:
+                  "Would love more quizzes at the end of each lecture. Still, a solid course 💯",
+              },
+              {
+                name: "👨‍🎓 Mritunjay",
+                feedback:
+                  "More interactive sessions would be 🔥. Loving it so far!",
+              },
+            ].map((entry, i) => (
+              <li key={i} className="border-b last:border-none pb-3">
+                <p className="text-gray-700 dark:text-gray-300">
+                  <strong>{entry.name}:</strong> {entry.feedback}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

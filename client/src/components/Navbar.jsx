@@ -98,6 +98,14 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </>
                 )}
+                {user?.role === "student" && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <Link to="/student/UserFeedback">User Feedback</Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (

@@ -50,18 +50,18 @@ export default function Dashboard0() {
 
   // Generate random data on mount
   useEffect(() => {
-    const totalStudents = randInt(10, 100);
+    const totalStudents = randInt(10, 80);
     const activeCourses = randInt(7, 7);
-    const assignmentsSubmitted = randInt(20, 100);
-    const instructors = randInt(3, 25);
+    const assignmentsSubmitted = randInt(20, 60);
+    const instructors = randInt(3, 15);
 
     const months = ["Jan", "Feb", "Mar", "Apr", "May"];
     const newLineData = months.map((month) => ({
       month,
-      students: randInt(20, 100),
+      students: randInt(20, 80),
     }));
 
-    const passed = randInt(10, 60);
+    const passed = randInt(10, 50);
     const failed = 100 - passed;
 
     setStats({

@@ -43,44 +43,49 @@ const HeroSection = () => {
           </Button>
         </form>
         <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center px-4 py-6">
-          <Button
-            onClick={() => navigate(`/course/search?query`)}
-            className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200 px-6 py-2"
-          >
-            Explore Courses
-          </Button>
+  <Button
+    onClick={() => navigate(`/course/search?query`)}
+    className="bg-white dark:bg-gray-800 text-blue-600 rounded-full px-6 py-2 
+              transition duration-300 ease-in-out 
+              hover:scale-105 hover:bg-blue-100 hover:text-blue-800 shadow-md hover:shadow-lg"
+  >
+    Explore Courses :)
+  </Button>
 
-          <Button
-            onClick={() => window.open("https://google.com", "_self")}
-            className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200 px-6 py-2"
-          >
-            College Notes
-          </Button>
+  <Button
+    onClick={() =>
+      window.open("https://atuloli01.github.io/ELMS/", "_self")
+    }
+    className="bg-white dark:bg-gray-800 text-green-600 rounded-full px-6 py-2 
+              transition duration-300 ease-in-out 
+              hover:scale-105 hover:bg-green-100 hover:text-green-800 shadow-md hover:shadow-lg"
+  >
+    Explore Notes :)
+  </Button>
 
-          <Button
-            onClick={() =>
-              window.open(
-                "https://prabhav-pareek.github.io/LearnLedger/",
-                "_self"
-              )
-            }
-            className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200 px-6 py-2"
-          >
-            School Notes
-          </Button>
+  <Button
+    onClick={() =>
+      window.open("https://prabhav-pareek.github.io/LearnLedger/", "_self")
+    }
+    className="bg-white dark:bg-gray-800 text-purple-600 rounded-full px-6 py-2 
+              transition duration-300 ease-in-out 
+              hover:scale-105 hover:bg-purple-100 hover:text-purple-800 shadow-md hover:shadow-lg"
+  >
+    School Notes :)
+  </Button>
 
-          <Button
-            onClick={() =>
-              window.open(
-                "https://atuloli01.github.io/UI-LMS-frontend/",
-                "_self"
-              )
-            }
-            className="bg-white dark:bg-gray-800 text-blue-600 rounded-full hover:bg-gray-200 px-6 py-2"
-          >
-            LMS-AI
-          </Button>
-        </div>
+  <Button
+    onClick={() =>
+      window.open("https://atuloli01.github.io/UI-LMS-frontend/", "_self")
+    }
+    className="bg-white dark:bg-gray-800 text-pink-600 rounded-full px-6 py-2 
+              transition duration-300 ease-in-out 
+              hover:scale-105 hover:bg-pink-100 hover:text-pink-800 shadow-md hover:shadow-lg"
+  >
+    LMS-AI :)
+  </Button>
+</div>
+
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import EditLecture from "./pages/admin/lecture/EditLecture";
 import CourseDetail from "./pages/student/CourseDetail";
 import CourseProgress from "./pages/student/CourseProgress";
 import SearchPage from "./pages/student/SearchPage";
+import UserFeedback from "@/pages/student/UserFeedback";
 import {
   AdminRoute,
   AuthenticatedUser,
@@ -89,8 +90,16 @@ const appRouter = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "student/UserFeedback",
+        element: (
+          <ProtectedRoute>
+            <UserFeedback />
+          </ProtectedRoute>
+        ),
+      },
 
-      // admin routes start from here
+      // Admin routes
       {
         path: "admin",
         element: (
@@ -104,7 +113,7 @@ const appRouter = createBrowserRouter([
             element: <Dashboard />,
           },
           {
-            path: "dashboard-alt", // 👈 your new dashboard0
+            path: "dashboard-alt",
             element: <Dashboard0 />,
           },
           {

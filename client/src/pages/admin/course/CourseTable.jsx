@@ -61,11 +61,11 @@ const invoices = [
 ];
 
 const CourseTable = () => {
-    const {data, isLoading} = useGetCreatorCourseQuery();
+  const { data, isLoading } = useGetCreatorCourseQuery();
   const navigate = useNavigate();
 
-  if(isLoading) return <h1>Loading...</h1>
- 
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <div>
       <Button onClick={() => navigate(`create`)}>Create a new course</Button>
@@ -81,12 +81,39 @@ const CourseTable = () => {
         </TableHeader>
         <TableBody>
           {data.courses.map((course) => (
-            <TableRow key={course._id}>
-              <TableCell className="font-medium">{course?.coursePrice || "NA"}</TableCell>
-              <TableCell> <Badge>{course.isPublished ? "Published" : "Draft"}</Badge> </TableCell>
-              <TableCell>{course.courseTitle}</TableCell>
+            <TableRow
+              key={course._id}
+              className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <TableCell className="font-medium text-blue-600 dark:text-blue-400">
+                ₹{course?.coursePrice || "NA"}
+              </TableCell>
+
+              <TableCell>
+                <Badge
+                  className={`text-sm px-3 py-1 rounded-full font-medium ${
+                    course.isPublished
+                      ? "bg-green-100 text-green-700"
+                      : "bg-yellow-100 text-yellow-700"
+                  }`}
+                >
+                  {course.isPublished ? "Published" : "Draft"}
+                </Badge>
+              </TableCell>
+
+              <TableCell className="text-gray-800 dark:text-gray-200 font-semibold">
+                {course.courseTitle}
+              </TableCell>
+
               <TableCell className="text-right">
-                 <Button size='sm' variant='ghost' onClick={() => navigate(`${course._id}`)}><Edit/></Button>
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  onClick={() => navigate(`${course._id}`)}
+                  className="hover:text-blue-600 transition duration-300"
+                >
+                  <Edit className="w-4 h-4" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}

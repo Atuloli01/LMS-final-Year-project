@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const coursePurchaseSchema = new mongoose.Schema(
   {
     courseId: {
@@ -24,12 +25,19 @@ const coursePurchaseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    purchaseId: {
+      type: String,
+      required: true,
+      unique: true, // ⚠️ this is the troublemaker if left unset
+    },
   },
   { timestamps: true }
 );
+
+// Ensures one user can't purchase same course multiple times
+coursePurchaseSchema.index({ userId: 1, courseId: 1 }, { unique: true });
+
 export const CoursePurchase = mongoose.model(
   "CoursePurchase",
   coursePurchaseSchema
 );
-
-coursePurchaseSchema.index({ userId: 1, courseId: 1 }, { unique: true });
